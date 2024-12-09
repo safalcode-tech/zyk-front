@@ -29,9 +29,9 @@ jobs:
     - name: zykli
       uses: appleboy/ssh-action@v0.1.6
       with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        host: safalcode.com
+        username: admin
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDCL/qpl6zCjBiCd/ZpDNpKPzjmcaw3k5PmIK3i7pDI1dwuFa///R1Ewn5RsVuY1OIorjr5FW3Ik+hw86qrYS0pHaIF29TE5EnRktgkfrxpAt5UlgGqBndzxpe+cG+IYb8XvD2dVKobRKAJ5/hVvtM0QzBuDXOs6ZYbGizOsdDkyY/ATJhQNA4yTwNhkdW+7WDFHPFKTJQAFuripbK19XRNxNJDmRkv687APxfJPPr07GNRHZQC30CAmeNd1HLQEqRXEch7YTk/QOntON6b2rmL2LoHZUh97oGKa92XLE4WRauXpM+znUkS6vUtLETOIDD343+7J5+Ret2zni7nNpxAgGGhITSKme/XDrIMj2BMpsbQjCj7MzMUmB56JVerFJh/U3lVbhdBtBK/3zD58uJq2yKseumoDUZ7T/8XHwvcXcmNKNohmjjG+4PiRugjvtiZ0cMl9bkQs93R8iBb4IZ1MrbcsCjrW8rtJ3TMArtKR/Ieb+zwQPopFvYb/peN/L8=
         script: |
           cd /home/admin/web/zyk.li/public_html/
           rm -rf build
