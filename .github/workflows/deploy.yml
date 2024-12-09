@@ -16,22 +16,30 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '14' # Match the Node.js version on EC2
+        node-version: '14'  # Match the Node.js version on EC2
 
     - name: Install Dependencies
-      run: |
-        npm install
+      run: npm install
 
     - name: Build React App
-      run: |
-        npm run build
+      run: npm run build
 
-    - name: zykli
+    - name: Archive Build Files
+      run: tar -czf build.tar.gz build
+
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.AWS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H safalcode.com >> ~/.ssh/known_hosts
+
+    - name: Deploy via SSH
       uses: appleboy/ssh-action@v0.1.6
       with:
-        host: ${{ secrets.DEPLOY_HOST }}
-        username: ${{ secrets.DEPLOY_USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        host: safalcode.com
+        username: root
+        key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
         script: |
           cd /home/admin/web/zyk.li/public_html/
           rm -rf build
