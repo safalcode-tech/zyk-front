@@ -47,7 +47,7 @@ jobs:
 
     - name: Deploy via SSH with Password Authentication
       run: |
-        sshpass -p "aruns777389@AKL" ssh -o StrictHostKeyChecking=no root}}@15.206.226.160 << 'EOF'
+        sshpass -p "aruns777389@AKL" ssh -o StrictHostKeyChecking=no root@15.206.226.160 << 'EOF'
           mkdir -p /home/admin/web/zyk.li/public_html/build
           cd /home/admin/web/zyk.li/public_html/build
           rm -rf *
