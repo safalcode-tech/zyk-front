@@ -19,30 +19,24 @@ jobs:
         node-version: '14'  # Match the Node.js version on EC2
 
     - name: Install Dependencies
-      run: npm install
+      run: |
+        npm install
 
     - name: Build React App
-      run: npm run build
-
-    - name: Archive Build Files
-      run: tar -czf build.tar.gz build
-
-    - name: Set up SSH
       run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.AWS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H safalcode.com >> ~/.ssh/known_hosts
+        npm run build
 
-    - name: Deploy via SSH
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: safalcode.com
-        username: root
-        key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
-        script: |
+    - name: Install sshpass
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y sshpass
+
+    - name: Deploy via SSH with Password Authentication
+      run: |
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@safalcode.com << 'EOF'
           cd /home/admin/web/zyk.li/public_html/
           rm -rf build
           mkdir build
           tar -xzf build.tar.gz -C build
           pm2 restart my-react-app || pm2 start serve -s build -p 3000 --name my-react-app
+        EOF
