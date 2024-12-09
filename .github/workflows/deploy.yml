@@ -54,6 +54,7 @@ jobs:
       run: |
         # SSH into the server and create the target directories
         sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@safalcode.com << 'EOF'
+
           mkdir -p /home/admin/web/zyk.li/public_html/build
           cd /home/admin/web/zyk.li/public_html/build
           rm -rf *
