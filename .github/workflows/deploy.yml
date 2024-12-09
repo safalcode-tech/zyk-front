@@ -25,13 +25,19 @@ jobs:
     - name: Build React App
       run: |
         npm run build
+        # Confirm that the build directory was created
+        ls -lh build
 
     - name: Create build.tar.gz
       run: |
-        cd build
-        # Make sure no files are being changed while running tar
-        sleep 1
-        tar -czf ../build.tar.gz .
+        # Confirm the build folder exists before running tar
+        if [ -d "build" ]; then
+          echo "Build folder exists, creating tar.gz"
+          tar -czf build.tar.gz -C build .
+        else
+          echo "Build folder does not exist"
+          exit 1
+        fi
 
     - name: Install sshpass
       run: |
