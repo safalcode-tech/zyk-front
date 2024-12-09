@@ -26,6 +26,11 @@ jobs:
       run: |
         npm run build
 
+    - name: Create build.tar.gz
+      run: |
+        cd build
+        tar -czf build.tar.gz .
+
     - name: Install sshpass
       run: |
         sudo apt-get update
@@ -37,6 +42,7 @@ jobs:
           cd /home/admin/web/zyk.li/public_html/
           rm -rf build
           mkdir build
-          tar -xzf build.tar.gz -C build
-          pm2 restart my-react-app || pm2 start serve -s build -p 3000 --name my-react-app
+          scp /home/runner/work/zyk-front/zyk-front/build/build.tar.gz ${{ secrets.SSH_USERNAME }}@safalcode.com:/home/admin/web/zyk.li/public_html/build/
+          tar -xzf /home/admin/web/zyk.li/public_html/build/build.tar.gz -C /home/admin/web/zyk.li/public_html/build
+          pm2 restart my-react-app || pm2 start serve -s /home/admin/web/zyk.li/public_html/build -p 3000 --name my-react-app
         EOF
