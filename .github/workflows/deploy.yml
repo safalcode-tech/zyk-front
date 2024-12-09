@@ -1,0 +1,40 @@
+name: zykli
+
+on:
+  push:
+    branches:
+      - main  # Replace with your branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16' # Match the Node.js version on EC2
+
+    - name: Install Dependencies
+      run: |
+        npm install
+
+    - name: Build React App
+      run: |
+        npm run build
+
+    - name: zykli
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          cd /home/admin/web/zyk.li/public_html/
+          rm -rf build
+          mkdir build
+          tar -xzf build.tar.gz -C build
+          pm2 restart my-react-app || pm2 start serve -s build -p 3000 --name my-react-app
