@@ -45,8 +45,8 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y sshpass
 
-        - name: Deploy via SSH with Password Authentication
-        run: |
+    - name: Deploy via SSH with Password Authentication
+      run: |
           sshpass -p "aruns777389@AKL" ssh -v -o StrictHostKeyChecking=no root@15.206.226.160 << 'EOF'
             set -e
             mkdir -p /home/admin/web/zyk.li/public_html/build
