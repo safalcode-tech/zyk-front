@@ -47,14 +47,19 @@ jobs:
 
     - name: Deploy via SSH with Password Authentication
       run: |
-        sshpass -p "aruns777389@AKL" ssh -o StrictHostKeyChecking=no deployer@15.206.226.160 << 'EOF'
-          mkdir -p /home/deployer/web/zyk.li/public_html/build
-          cd /home/deployer/web/zyk.li/public_html/build
+        sshpass -p "aruns777389@AKL" ssh -o StrictHostKeyChecking=no root@15.206.226.160 << 'EOF'
+          set -e
+          mkdir -p /home/admin/web/zyk.li/public_html/build
+          cd /home/admin/web/zyk.li/public_html/build
           rm -rf *
         EOF
-        scp build.tar.gz deployer@15.206.226.160:/home/deployer/web/zyk.li/public_html/build/
-        sshpass -p "aruns777389@AKL" ssh -o StrictHostKeyChecking=no deployer@15.206.226.160 << 'EOF'
-          cd /home/deployer/web/zyk.li/public_html/build
-          tar -xzf build.tar.gz
+        scp build.tar.gz root@15.206.226.160:/home/admin/web/zyk.li/public_html/build/
+        sshpass -p "aruns777389@AKL" ssh -o StrictHostKeyChecking=no root@15.206.226.160 << 'EOF'
+          cd /home/admin/web/zyk.li/public_html/build
+          if [ -f "build.tar.gz" ]; then
+            tar -xzf build.tar.gz
+          else
+            echo "build.tar.gz not found!"
+          fi
           pm2 restart my-react-app || pm2 start serve -s build -p 3000 --name my-react-app
         EOF
