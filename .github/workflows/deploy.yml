@@ -47,15 +47,15 @@ jobs:
 
     - name: Deploy via SSH with Password Authentication
       run: |
-        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@15.206.226.160 << 'EOF'
+        sshpass -p "aruns777389@AKL" ssh -o StrictHostKeyChecking=no root}}@15.206.226.160 << 'EOF'
           mkdir -p /home/admin/web/zyk.li/public_html/build
           cd /home/admin/web/zyk.li/public_html/build
           rm -rf *
         EOF
 
-        scp build.tar.gz ${{ secrets.SSH_USERNAME }}@15.206.226.160:/home/admin/web/zyk.li/public_html/build/
+        scp build.tar.gz root@15.206.226.160:/home/admin/web/zyk.li/public_html/build/
 
-        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@15.206.226.160 << 'EOF'
+        sshpass -p "aruns777389@AKL" ssh -o StrictHostKeyChecking=no root@15.206.226.160 << 'EOF'
           cd /home/admin/web/zyk.li/public_html/build
           tar -xzf build.tar.gz
           pm2 restart my-react-app || pm2 start serve -s build -p 3000 --name my-react-app
