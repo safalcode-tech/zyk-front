@@ -7,7 +7,9 @@ import Logout from './Logout';
 const Navigation = () => {
   return (
     <nav style={styles.navbar}>
-      <div style={styles.logo}>ZYK.LI</div>
+      <Link to="/" style={styles.navLink}>
+        <div style={styles.logo}>ZYK.LI</div>
+      </Link>
       <ul style={styles.navLinks}>
         <li style={styles.navItem}>
           <Link to="/" style={styles.navLink}>
