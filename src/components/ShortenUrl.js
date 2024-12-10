@@ -29,7 +29,7 @@ const ShortenUrl = () => {
       {shortenedUrl && (
         <div>
           <h3>Shortened URL:</h3>
-          <p>{`${process.env.APP_URL}/${shortenedUrl}`}</p>
+          <p>{`${process.env.REACT_APP_APP_URL}/${shortenedUrl}`}</p>
         </div>
       )}
 
