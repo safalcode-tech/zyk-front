@@ -1,65 +1,36 @@
-name: zykli
+name: Deploy to EC2
 
-on:
+on: 
   push:
-    branches:
-      - main  # Replace with your branch name
+    branches: 
+      - main
+
+permissions:
+  contents: read
 
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
-
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Source  
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '14'  # Match the Node.js version on EC2
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+            node-version: 20
 
-    - name: Install Dependencies
-      run: |
-        npm install
+      - name: Install Dependencies
+        run: npm ci
 
-    - name: Build React App
-      run: |
-        npm run build
-        ls -lh
+      - name: Build Project
+        run: npm run build
 
-    - name: List contents of build folder
-      run: |
-        ls -lh ./build  # Ensure the build folder contains files
-
-    - name: Create build.tar.gz
-      run: |
-        if [ -d "./build" ]; then
-          tar -czf build.tar.gz -C ./build .
-        else
-          exit 1
-        fi
-        ls -lh build.tar.gz
-
-    - name: Install sshpass
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y sshpass
-
-    - name: Deploy via SSH with Password Authentication
-      run: |
-          sshpass -p "aruns777389@AKL" ssh -v -o StrictHostKeyChecking=no root@15.206.226.160 << 'EOF'
-            set -e
-            mkdir -p /home/admin/web/zyk.li/public_html/build
-            cd /home/admin/web/zyk.li/public_html/build
-            rm -rf *
-          EOF
-          scp build.tar.gz root@15.206.226.160:/home/admin/web/zyk.li/public_html/build/
-          sshpass -p "aruns777389@AKL" ssh -o StrictHostKeyChecking=no root@15.206.226.160 << 'EOF'
-            cd /home/admin/web/zyk.li/public_html/build
-            if [ -f "build.tar.gz" ]; then
-              tar -xzf build.tar.gz
-            else
-              echo "build.tar.gz not found!"
-            fi
-            pm2 restart my-react-app || pm2 start serve -s build -p 3000 --name my-react-app
-          EOF
+      - name: Upload to EC2
+        env:
+          EC2_HOST: 15.206.226.160
+          EC2_USER: root
+          EC2_PASSWORD: aruns777389@AKL
+        run: |
+          sudo apt-get update && sudo apt-get install -y sshpass
+          sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -r build/* $SSH_USERNAME@$DEPLOY_HOST:/home/admin/web/zyk.li/public_html/
