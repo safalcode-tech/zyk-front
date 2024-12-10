@@ -9,6 +9,7 @@ import Navigation from './components/Navigation';
 import './App.css';
 import api from './utils/api';
 import useAuth from './hooks/useAuth';
+import MyUrls from './components/MyUrls';
 
 const App = () => {
   const isLoggedIn = useAuth(); // Use the custom auth hook
@@ -52,6 +53,7 @@ const App = () => {
             }
           />
           <Route path="/plans" element={<Plans />} />
+          <Route path="/my-urls" element={<MyUrls />} />
           <Route path="/:shortenedUrl" element={<RedirectHandler />} />
         </Routes>
       </div>

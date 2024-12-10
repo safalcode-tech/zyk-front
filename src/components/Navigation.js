@@ -22,8 +22,8 @@ const Navigation = () => {
           </Link>
         </li>
         <li style={styles.navItem}>
-          <Link to="/about" style={styles.navLink}>
-            About
+          <Link to="/my-urls" style={styles.navLink}>
+            My Urls
           </Link>
         </li>
         <li style={styles.navItem}>
