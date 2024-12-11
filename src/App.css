@@ -1,6 +1,9 @@
 .App {
   text-align: center;
 }
+.hide-navbar {
+  display: none !important;
+}
 
 .App-logo {
   height: 40vmin;

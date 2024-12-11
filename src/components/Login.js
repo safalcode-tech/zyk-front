@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import api from '../utils/api';
-import useAuth from '../hooks/useAuth';  // Import the useAuth hook
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
-const LoginRegister = ({isLoggedIn}) => {
-
+const LoginRegister = () => {
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Register
-
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,62 +33,84 @@ const LoginRegister = ({isLoggedIn}) => {
       setIsLogin(true); // Switch to Login after successful registration
     } catch (error) {
       console.error('Registration failed', error);
-      setMessage('Registration failed. Please try again.' + error.response.data.message);
+      setMessage('Registration failed. Please try again.' + (error.response?.data?.message || ''));
     }
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2 style={styles.heading}>{isLogin ? 'Login' : 'Register'}</h2>
-        {message && <p style={styles.message}>{message}</p>}
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+      <div className="card p-4" style={{ width: '400px' }}>
+        <h2 className="text-center mb-4">{isLogin ? 'Login' : 'Register'}</h2>
+        {message && <div className="alert alert-danger" role="alert">{message}</div>}
 
         {!isLogin && (
-        <input
-          type="username"
-          value={username}
-          onChange={(e) => setUserName(e.target.value)}
-          placeholder="Enter your username"
-          style={styles.input}
-        />
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">Username</label>
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
+              placeholder="Enter your username"
+            />
+          </div>
         )}
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          style={styles.input}
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-          style={styles.input}
-        />
-        {!isLogin && (
+
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Password</label>
           <input
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm your password"
-            style={styles.input}
+            className="form-control"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
           />
+        </div>
+
+        {!isLogin && (
+          <div className="mb-3">
+            <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm your password"
+            />
+          </div>
         )}
+
         <button
+          className="btn btn-primary w-100"
           onClick={isLogin ? handleLogin : handleRegister}
-          style={styles.button}
         >
           {isLogin ? 'Login' : 'Register'}
         </button>
-        <p style={styles.toggleText}>
+
+        <p className="text-center mt-3">
           {isLogin ? "Don't have an account?" : 'Already have an account?'}
           <span
+            className="text-primary" 
+            style={{ cursor: 'pointer', textDecoration: 'underline', marginLeft: '5px' }}
             onClick={() => {
               setIsLogin(!isLogin);
               setMessage('');
             }}
-            style={styles.toggleLink}
           >
             {isLogin ? ' Register here' : ' Login here'}
           </span>
@@ -98,63 +118,6 @@ const LoginRegister = ({isLoggedIn}) => {
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#f0f4f8',
-  },
-  card: {
-    backgroundColor: '#fff',
-    padding: '20px 30px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    textAlign: 'center',
-    width: '300px',
-  },
-  heading: {
-    fontSize: '24px',
-    margin: '0 0 20px 0',
-    color: '#333',
-  },
-  message: {
-    color: 'red',
-    fontSize: '14px',
-    marginBottom: '15px',
-  },
-  input: {
-    width: '100%',
-    padding: '10px',
-    marginBottom: '15px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    fontSize: '16px',
-  },
-  button: {
-    width: '100%',
-    padding: '10px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    fontSize: '16px',
-    cursor: 'pointer',
-  },
-  toggleText: {
-    marginTop: '15px',
-    fontSize: '14px',
-    color: '#666',
-  },
-  toggleLink: {
-    color: '#007bff',
-    cursor: 'pointer',
-    marginLeft: '5px',
-    textDecoration: 'underline',
-  },
 };
 
 export default LoginRegister;

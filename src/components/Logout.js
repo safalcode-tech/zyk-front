@@ -8,57 +8,23 @@ const Navigation = () => {
   return (
     <nav>
       {isLoggedIn ? (
-        <li style={styles.navItem}
+        <li className="nav-item"
           onClick={() => {
             localStorage.removeItem('token');
             window.location.reload();
           }}
         >
-          <Link style={styles.navLink}>Logout</Link>
+          <Link className="nav-link text-white">Logout</Link>
 
         </li>
       ) : (
-        <li style={styles.navItem}>
-          <Link to="/login" style={styles.navLink}>
+        <li className="nav-item">
+          <Link to="/login"  className="nav-link text-white" >
             Login
           </Link>
         </li>
       )}
     </nav>
   );
-};
-const styles = {
-  navbar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '10px 20px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    position: 'sticky',
-    top: '0',
-    zIndex: '1000',
-  },
-  logo: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-  },
-  navLinks: {
-    listStyle: 'none',
-    display: 'flex',
-    gap: '20px',
-    margin: 0,
-    padding: 0,
-  },
-  navItem: {
-    textAlign: 'center',
-  },
-  navLink: {
-    textDecoration: 'none',
-    color: '#fff',
-    fontSize: '16px',
-    fontWeight: '500',
-    transition: 'color 0.3s ease',
-  }
 };
 export default Navigation;

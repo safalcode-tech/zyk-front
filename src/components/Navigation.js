@@ -1,83 +1,118 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../utils/api'; // Assuming you have an API utility set up
-import ShortenUrl from './ShortenUrl'; // Import ShortenUrl component
-import Logout from './Logout';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import Logout from './Logout'; // Assuming you have this component
 
 const Navigation = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <nav style={styles.navbar}>
-      <Link to="/" style={styles.navLink}>
-        <div style={styles.logo}>ZYK.LI</div>
-      </Link>
-      <ul style={styles.navLinks}>
-        <li style={styles.navItem}>
-          <Link to="/" style={styles.navLink}>
-            Home
+    <>
+      {/* Top Navigation Bar */}
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div className="container-fluid">
+          <Link to="/" className="navbar-brand">
+            ZYK.LI
           </Link>
-        </li>
-        <li style={styles.navItem}>
-          <Link to="/plans" style={styles.navLink}>
-            Plans
-          </Link>
-        </li>
-        <li style={styles.navItem}>
-          <Link to="/my-urls" style={styles.navLink}>
-            My Urls
-          </Link>
-        </li>
-        <li style={styles.navItem}>
-          <Link to="/services" style={styles.navLink}>
-            Services
-          </Link>
-        </li>
+          <button
+            className="navbar-toggler"
+            type="button"
+            onClick={toggleSidebar}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          {/* Menu Items for Desktop */}
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link to="/" className="nav-link text-white">
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/plans" className="nav-link text-white">
+                  Plans
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/my-urls" className="nav-link text-white">
+                  My Urls
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/services" className="nav-link text-white">
+                  Services
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/contact" className="nav-link text-white">
+                  Contact
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Logout />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-        <li style={styles.navItem}>
-          <Link to="/contact" style={styles.navLink}>
-            Contact
-          </Link>
-        </li>
-        <li style={styles.navItem}>
-          <Logout />
-        </li>
-      </ul>
-    </nav>
+      {/* Sidebar for Mobile View */}
+      <div
+        className={`offcanvas offcanvas-start ${isSidebarOpen ? 'show' : ''}`}
+        style={{
+          width: '250px',
+          backgroundColor: '#007bff',
+          color: '#fff',
+        }}
+      >
+        <div className="offcanvas-header">
+          <h5 className="offcanvas-title">Menu</h5>
+          <button
+            type="button"
+            className="btn-close text-reset"
+            onClick={toggleSidebar}
+          ></button>
+        </div>
+        <div className="offcanvas-body">
+          <ul className="nav flex-column">
+            <li className="nav-item">
+              <Link to="/" className="nav-link text-white">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/plans" className="nav-link text-white">
+                Plans
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/my-urls" className="nav-link text-white">
+                My Urls
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/services" className="nav-link text-white">
+                Services
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/contact" className="nav-link text-white">
+                Contact
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Logout />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
   );
-};
-
-const styles = {
-  navbar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '10px 20px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    position: 'sticky',
-    top: '0',
-    zIndex: '1000',
-  },
-  logo: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-  },
-  navLinks: {
-    listStyle: 'none',
-    display: 'flex',
-    gap: '20px',
-    margin: 0,
-    padding: 0,
-  },
-  navItem: {
-    textAlign: 'center',
-  },
-  navLink: {
-    textDecoration: 'none',
-    color: '#fff',
-    fontSize: '16px',
-    fontWeight: '500',
-    transition: 'color 0.3s ease',
-  }
 };
 
 export default Navigation;

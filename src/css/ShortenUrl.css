@@ -1,0 +1,57 @@
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Slide-up animation */
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-in-out;
+  }
+  
+  /* Zoom-in animation */
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .animate-zoom-in {
+    animation: zoomIn 0.8s ease-in-out;
+  }
+  
+  /* Hover effect for buttons */
+  .animate-hover {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .animate-hover:hover {
+    transform: scale(1.05);
+    background-color: #007bff !important; /* Make it look more active */
+    color: #fff !important;
+  }
+  
