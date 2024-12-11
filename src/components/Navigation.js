@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import Logout from './Logout'; // Assuming you have this component
-
+import useAuth from '../hooks/useAuth';
 const Navigation = () => {
+  const isLoggedIn = useAuth(); // Use the custom auth hook
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -38,11 +39,13 @@ const Navigation = () => {
                   Plans
                 </Link>
               </li>
-              <li className="nav-item">
+              {isLoggedIn && (
+              <li  className="nav-item">
                 <Link to="/my-urls" className="nav-link text-white">
                   My Urls
                 </Link>
               </li>
+            )}
               <li className="nav-item">
                 <Link to="/services" className="nav-link text-white">
                   Services

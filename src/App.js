@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './components/Login';
 import ShortenUrl from './components/ShortenUrl';
 import RedirectHandler from './components/RedirectHandler';
@@ -8,10 +8,13 @@ import Navigation from './components/Navigation';
 import './App.css';
 import useAuth from './hooks/useAuth';
 import MyUrls from './components/MyUrls';
+import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute
 
 const App = () => {
   const isLoggedIn = useAuth(); // Use the custom auth hook
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const navigate = useNavigate(); // Initialize the navigate hook
+
   // Check Internet connectivity
   useEffect(() => {
     const handleOnline = () => setIsOffline(false);
@@ -27,7 +30,7 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
+    <>
       <Navigation isLoggedIn={isLoggedIn} />
       {/* Check offline or online */}
       {isOffline && (
@@ -40,22 +43,18 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={
-              isLoggedIn ? (
-                <>
-                  <ShortenUrl />
-                </>
-              ) : (
-                <Login />
-              )
-            }
+            element={isLoggedIn ? <ShortenUrl /> : <Login />}
           />
           <Route path="/plans" element={<Plans />} />
-          <Route path="/my-urls" element={<MyUrls />} />
+          {/* Wrap secure routes with ProtectedRoute */}
+          <Route
+            path="/my-urls"
+            element={isLoggedIn ? <MyUrls /> : <Login />}
+          />
           <Route path="/:shortenedUrl" element={<RedirectHandler />} />
         </Routes>
       </div>
-    </Router>
+    </>
   );
 };
 

@@ -131,8 +131,9 @@ import api from '../utils/api';
 import Payment from './Payment';
 import ActivePlans from './ActivePlan';
 import '../css/Plans.css'; // Add a custom CSS file for styling
-
+import useAuth from '../hooks/useAuth';
 const Plans = () => {
+  const isLoggedIn = useAuth(); // Use the custom auth hook
   const [plans, setPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [selectedDuration, setSelectedDuration] = useState(1); // Default to 1 month
@@ -178,6 +179,7 @@ const Plans = () => {
     <div className="plans-container">
       {/* Active Plan Section */}
       <div className="row">
+      {isLoggedIn &&(
       <div className="col-md-6 col-sm-12">
         <ActivePlans
           planNameShow={true}
@@ -190,6 +192,7 @@ const Plans = () => {
           daysRemainingShow={true}
         />
       </div>
+      )}
       <div className="col-md-6 col-sm-12">
 
         <h2 className="plans-heading">Choose Your Membership Plan</h2>
