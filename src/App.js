@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import ShortenUrl from './components/ShortenUrl';
@@ -11,26 +11,15 @@ import api from './utils/api';
 import useAuth from './hooks/useAuth';
 import MyUrls from './components/MyUrls';
 
-const App = () => {
-  const isLoggedIn = useAuth(); // Use the custom auth hook
-  const [isOffline, setIsOffline] = useState(!navigator.onLine);
-  // Check Internet connectivity
-  useEffect(() => {
-    const handleOnline = () => setIsOffline(false);
-    const handleOffline = () => setIsOffline(true);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
+const AppContent = ({ isLoggedIn, isOffline, styles }) => {
+  const location = useLocation(); // Now inside the Router context
 
   return (
-    <Router>
-      <Navigation isLoggedIn={isLoggedIn} />
+    <>
+      {/* Conditionally render Navigation based on the current path */}
+      {!location.pathname.match(/^\/[^/]+$/) && (
+        <Navigation isLoggedIn={isLoggedIn} />
+      )}
       {/* Check offline or online */}
       {isOffline && (
         <div style={styles.offlineBanner}>
@@ -57,6 +46,31 @@ const App = () => {
           <Route path="/:shortenedUrl" element={<RedirectHandler />} />
         </Routes>
       </div>
+    </>
+  );
+};
+
+const App = () => {
+  const isLoggedIn = useAuth(); // Use the custom auth hook
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+  // Check Internet connectivity
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  return (
+    <Router>
+      <AppContent isLoggedIn={isLoggedIn} isOffline={isOffline} styles={styles} />
     </Router>
   );
 };
