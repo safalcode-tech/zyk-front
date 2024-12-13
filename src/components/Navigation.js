@@ -39,6 +39,11 @@ const Navigation = () => {
                   Plans
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/contact" className="nav-link text-white">
+                  Contact
+                </Link>
+              </li>
               {isLoggedIn && (
               <li  className="nav-item">
                 <Link to="/my-urls" className="nav-link text-white">
@@ -49,11 +54,6 @@ const Navigation = () => {
               <li className="nav-item">
                 <Link to="/services" className="nav-link text-white">
                   Services
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/contact" className="nav-link text-white">
-                  Contact
                 </Link>
               </li>
               <li className="nav-item">

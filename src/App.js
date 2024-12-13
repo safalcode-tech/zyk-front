@@ -9,6 +9,7 @@ import './App.css';
 import useAuth from './hooks/useAuth';
 import MyUrls from './components/MyUrls';
 import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute
+import Contact from './components/Contact';
 
 const App = () => {
   const isLoggedIn = useAuth(); // Use the custom auth hook
@@ -46,6 +47,7 @@ const App = () => {
             element={isLoggedIn ? <ShortenUrl /> : <Login />}
           />
           <Route path="/plans" element={<Plans />} />
+          <Route path="/contact" element={<Contact />} />
           {/* Wrap secure routes with ProtectedRoute */}
           <Route
             path="/my-urls"
