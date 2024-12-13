@@ -5,15 +5,17 @@ import ShortenUrl from './components/ShortenUrl';
 import RedirectHandler from './components/RedirectHandler';
 import Plans from './components/Plans';
 import Navigation from './components/Navigation';
+import Loader from './components/Loader'; // Import the Loader component
 import './App.css';
 import useAuth from './hooks/useAuth';
 import MyUrls from './components/MyUrls';
-import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute
+import ProtectedRoute from './components/ProtectedRoute';
 import Contact from './components/Contact';
 
 const App = () => {
   const isLoggedIn = useAuth(); // Use the custom auth hook
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [loading, setLoading] = useState(false); // Loader state
   const navigate = useNavigate(); // Initialize the navigate hook
 
   // Check Internet connectivity
@@ -30,8 +32,16 @@ const App = () => {
     };
   }, []);
 
+  // Simulate loading effect (example for demonstration)
+  useEffect(() => {
+    setLoading(true); // Show loader
+    const timer = setTimeout(() => setLoading(false), 1000); // Hide loader after 1 second
+    return () => clearTimeout(timer);
+  }, [isLoggedIn]);
+
   return (
     <>
+      {loading && <Loader />} {/* Display loader when loading */}
       <Navigation isLoggedIn={isLoggedIn} />
       {/* Check offline or online */}
       {isOffline && (
