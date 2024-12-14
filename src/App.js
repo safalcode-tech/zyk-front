@@ -11,6 +11,10 @@ import useAuth from './hooks/useAuth';
 import MyUrls from './components/MyUrls';
 import ProtectedRoute from './components/ProtectedRoute';
 import Contact from './components/Contact';
+import About from './components/About';
+import TermsAndConditions from './components/TermsAndConditions';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import Footer from './components/Footer';
 
 const App = () => {
   const isLoggedIn = useAuth(); // Use the custom auth hook
@@ -56,8 +60,11 @@ const App = () => {
             path="/"
             element={isLoggedIn ? <ShortenUrl /> : <Login />}
           />
+          <Route path="/about" element={<About />} />
           <Route path="/plans" element={<Plans />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           {/* Wrap secure routes with ProtectedRoute */}
           <Route
             path="/my-urls"
@@ -66,6 +73,8 @@ const App = () => {
           <Route path="/:shortenedUrl" element={<RedirectHandler />} />
         </Routes>
       </div>
+      <Footer/>
+
     </>
   );
 };

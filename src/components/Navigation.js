@@ -35,6 +35,11 @@ const Navigation = () => {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/about" className="nav-link text-white">
+                  About
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/plans" className="nav-link text-white">
                   Plans
                 </Link>
