@@ -56,11 +56,7 @@ const Navigation = () => {
                 </Link>
               </li>
             )}
-              <li className="nav-item">
-                <Link to="/services" className="nav-link text-white">
-                  Services
-                </Link>
-              </li>
+              
               <li className="nav-item">
                 <Logout />
               </li>

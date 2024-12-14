@@ -19,7 +19,7 @@ const Navigation = () => {
         </li>
       ) : (
         <li className="nav-item">
-          <Link to="/login"  className="nav-link text-white" >
+          <Link to="/short"  className="nav-link text-white" >
             Login
           </Link>
         </li>
