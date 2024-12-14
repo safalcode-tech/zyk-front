@@ -15,6 +15,7 @@ import About from './components/About';
 import TermsAndConditions from './components/TermsAndConditions';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Footer from './components/Footer';
+import Home from './components/Home';
 
 const App = () => {
   const isLoggedIn = useAuth(); // Use the custom auth hook
@@ -54,10 +55,11 @@ const App = () => {
         </div>
       )}
       {/* Routes */}
-      <div className="container">
+      <div className="container-fluid p-0">
         <Routes>
+          <Route path="/" element={<Home />} /> {/* Default route */}
           <Route
-            path="/"
+            path="/short"
             element={isLoggedIn ? <ShortenUrl /> : <Login />}
           />
           <Route path="/about" element={<About />} />
