@@ -58,7 +58,7 @@ const Footer = () => {
         <div className="row mt-3">
           <div className="col text-center">
             <a
-              href="https://www.facebook.com"
+              href="https://www.facebook.com/safalcode"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white me-3 text-decoration-none"
@@ -66,7 +66,7 @@ const Footer = () => {
               <i className="fab fa-facebook"></i> Facebook
             </a>
             <a
-              href="https://www.twitter.com"
+              href="https://x.com/safalcode"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white me-3 text-decoration-none"
@@ -74,7 +74,7 @@ const Footer = () => {
               <i className="fab fa-twitter"></i> Twitter
             </a>
             <a
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/company/safalcode/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white text-decoration-none"

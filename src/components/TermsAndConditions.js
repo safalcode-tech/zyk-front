@@ -47,7 +47,7 @@ const TermsAndConditions = () => {
 
         <h2>Contact Information</h2>
         <p>
-          For questions about these Terms and Conditions, contact us at <a href="mailto:support@zyk.li">support@zyk.li</a>.
+          For questions about these Terms and Conditions, contact us at <a href="mailto:info@safalcode.com">info@safalcode.com</a>.
         </p>
       </div>
     </div>
