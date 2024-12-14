@@ -8,8 +8,17 @@ const Home = () => {
       {/* Hero Section with Bootstrap Slider */}
       <div id="heroCarousel" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-inner">
-          <div className="carousel-item active">
-            <div className="d-flex align-items-center justify-content-center vh-100 bg-primary text-white">
+          <div className="carousel-item active"
+          
+          >
+            <div className="d-flex align-items-center justify-content-center vh-100 text-white"
+            style={{
+                backgroundImage: "url('/b1.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: "100vh",
+              }}
+            >
               <div className="text-center">
                 <h1 className="display-4 fw-bold">Simplify Your Links</h1>
                 <p className="lead">Transform long URLs into short, shareable links.</p>
@@ -20,7 +29,14 @@ const Home = () => {
             </div>
           </div>
           <div className="carousel-item">
-            <div className="d-flex align-items-center justify-content-center vh-100 bg-secondary text-white">
+            <div className="d-flex align-items-center justify-content-center vh-100 text-white"
+             style={{
+                backgroundImage: "url('/b2.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: "100vh",
+              }}
+            >
               <div className="text-center">
                 <h1 className="display-4 fw-bold">Track Your Performance</h1>
                 <p className="lead">Monitor clicks and engagement metrics in real-time.</p>
