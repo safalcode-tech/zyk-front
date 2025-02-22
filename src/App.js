@@ -16,6 +16,7 @@ import TermsAndConditions from './components/TermsAndConditions';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Footer from './components/Footer';
 import Home from './components/Home';
+import PaymentStatus from './components/PaymentStatus';
 
 const App = () => {
   const isLoggedIn = useAuth(); // Use the custom auth hook
@@ -73,6 +74,7 @@ const App = () => {
             element={isLoggedIn ? <MyUrls /> : <Login />}
           />
           <Route path="/:shortenedUrl" element={<RedirectHandler />} />
+          <Route path="/payment-success" element={<PaymentStatus />} />
         </Routes>
       </div>
       <Footer/>
