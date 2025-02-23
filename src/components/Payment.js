@@ -7,7 +7,7 @@ const Payment = ({ selectedPlan, selectedDuration, totalPrice,totalDays }) => {
   const [cashfree, setCashfree] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState('');
   const [loading, setLoading] = useState(false);
-  const cashfreeMode = process.env.REACT_APP_CASHFREE_MODE || 'sandbox';
+  const cashfreeMode = 'PROD';
 
   // Load Cashfree SDK when the component mounts
   useEffect(() => {
