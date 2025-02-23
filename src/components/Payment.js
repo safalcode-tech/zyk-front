@@ -14,7 +14,7 @@ const Payment = ({ selectedPlan, selectedDuration, totalPrice,totalDays }) => {
     async function loadSdk() {
       try {
         // Set mode to "sandbox" or "production" as needed
-        const cf = await load({ mode: cashfreeMode });
+        const cf = await load({ mode: 'production' });
         setCashfree(cf);
       } catch (err) {
         console.error('Error loading Cashfree SDK', err);
