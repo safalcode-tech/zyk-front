@@ -128,7 +128,7 @@ import React, { useState, useEffect } from 'react';
 import { load } from '@cashfreepayments/cashfree-js';
 import api from '../utils/api';
 
-const Payment = ({ selectedPlan, totalPrice, totalDays }) => {
+const Payment = ({ selectedPlan, selectedDuration, totalPrice,totalDays }) => {
   const [cashfree, setCashfree] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState('');
   const [loading, setLoading] = useState(false);
@@ -162,9 +162,9 @@ const Payment = ({ selectedPlan, totalPrice, totalDays }) => {
       // Create a Cashfree order on your backend
       const { data } = await api.post('/create-order', {
         amount: totalPrice,
-        user_id: selectedPlan.user_id,  // use authenticated user's ID
         daysActive: totalDays,
         planId: selectedPlan.plan_id,
+        duration:selectedDuration
       });
 
       // Ensure required details are returned
